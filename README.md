@@ -89,5 +89,5 @@ address to the redirect URLs. Details, including Google sign-in, are in [docs/DE
 
 ## More
 
-[Deployment](docs/DEPLOYMENT.md) · [Backup and restore](docs/BACKUP_AND_RESTORE.md) · [Status](docs/STATUS.md) ·
+[Deployment](docs/DEPLOYMENT.md) · [Backup and restore](docs/BACKUP_AND_RESTORE.md) ·
 [Security notes](docs/SECURITY.md)
