@@ -1,0 +1,155 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #070711;
+  --color-surface: #0f0f1c;
+  --color-raised: #171729;
+  --color-line: #26263f;
+  --color-fg: #ecebf7;
+  --color-muted: #9795b5;
+  --color-violet: #8f7bff;
+  --color-blue: #4f8cff;
+  --color-danger: #ff6b81;
+  --color-ok: #5be3a4;
+  --color-warn: #ffc857;
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  background: var(--color-ink);
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* One consistent, always-visible keyboard focus style. */
+:focus-visible {
+  outline: 2px solid var(--color-violet);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-violet) 45%, transparent);
+}
+
+/* Slim scrollbars that match the theme. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line) transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+dialog::backdrop {
+  background: rgba(4, 4, 12, 0.72);
+  backdrop-filter: blur(4px);
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--color-raised) 25%, #1f1f36 50%, var(--color-raised) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+
+/* Width of the large video: fits short screens but never below YouTube's 200px height rule. */
+:root {
+  --player-w: max(min(100vw, 356px), min(100vw, 760px, calc((100dvh - 24rem) * 16 / 9)));
+}
+
+/* Page change: a short fade and rise, so moving around feels smooth. */
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.page-enter {
+  animation: page-enter 0.28s ease-out both;
+}
+
+/* "Now playing" bars. They only move while a song is playing. */
+@keyframes eq {
+  0%,
+  100% {
+    transform: scaleY(0.25);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+.eq-bar {
+  display: block;
+  width: 3px;
+  height: 100%;
+  border-radius: 2px;
+  background: currentColor;
+  transform-origin: bottom;
+  animation: eq 0.9s ease-in-out infinite;
+}
+.eq-paused .eq-bar {
+  animation-play-state: paused;
+  transform: scaleY(0.3);
+}
+
+/* Volume slider: a slim track filled up to the thumb. */
+input[type="range"].range-fill {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--color-violet) var(--fill, 0%), var(--color-line) var(--fill, 0%));
+}
+input[type="range"].range-fill::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--color-fg);
+}
+input[type="range"].range-fill::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-fg);
+}
